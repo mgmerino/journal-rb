@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Theme Variables */
+:root {
+    /* Light Theme (default) */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f0f0;
+    --bg-table-header: #3c3c3c;
+    --bg-table-odd: #dedede;
+    --bg-table-even: #bdbdbd;
+    
+    --text-primary: #000000;
+    --text-secondary: #666666;
+    --text-link: #2d2d2d;
+    --text-table-header: #bcbcbc;
+    
+    --border-color: #cccccc;
+}
+
+[data-theme="dark"] {
+    /* Dark Theme */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --bg-table-header: #1a1a1a;
+    --bg-table-odd: #2d2d2d;
+    --bg-table-even: #383838;
+    
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --text-link: #b0b0b0;
+    --text-table-header: #a0a0a0;
+    
+    --border-color: #444444;
+}
+
+body {
+    font-family: serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+h3 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+nav {
+    margin-bottom: 20px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+nav ul li a {
+    text-decoration: none;
+    color: var(--text-primary);
+}
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    margin-bottom: 20px;
+    min-width: 800px;
+}
+main section {
+    margin-bottom: 20px;
+}
+main section article {
+    margin-bottom: 20px;
+}
+main section article h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+main section article p {
+    margin-bottom: 10px;
+}
+main section article footer {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 10px;
+}
+main section article footer p {
+    margin-bottom: 0;
+}
+
+footer {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-top: 20px;
+}
+footer p {
+    margin-bottom: 0;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.journal-entry {
+    margin-bottom: 20px;
+    padding: 2rem;
+    background-color: var(--bg-secondary);
+    transition: background-color 0.3s ease;
+}
+.journal-entry-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.journal-entry-title {
+    font-family: serif;
+    font-style: italic;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    flex: 4;
+}
+.journal-entry-date {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    flex: 1;
+}
+
+.journal-entry-content {
+    margin-bottom: 10px;
+}
+.journal-entry-footer {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-end;
+}
+.tag {
+    padding: 0.1rem .5rem;
+    border-radius: 0.1rem;
+    color: #fff;
+    font-size: 0.8rem;
+    font-family: monospace;
+    border-radius: 0.1rem;
+}
+.journal-entries {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-link);
+    transition: color 0.3s ease;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* sections */
+
+section#all {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+td.title {
+    font-family: serif;
+    font-size: 1rem;
+    font-style: italic;
+}
+table th, table td {
+    padding: 0.3rem 1rem;
+}
+table th {
+    background-color: var(--bg-table-header);
+    color: var(--text-table-header);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+table tr:nth-child(even) {
+    background-color: var(--bg-table-even);
+    transition: background-color 0.3s ease;
+}
+table tr:nth-child(odd) {
+    background-color: var(--bg-table-odd);
+    transition: background-color 0.3s ease;
+}
+
+section#all h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Table Controls (Search and Filter) */
+.table-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.search-box, .filter-box {
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-box input,
+.filter-box select {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.search-box input:focus,
+.filter-box select:focus {
+    outline: none;
+    border-color: var(--text-primary);
+}
+
+.search-box input::placeholder {
+    color: var(--text-secondary);
+}
+
+/* Sortable Table Headers */
+table th.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+}
+
+table th.sortable:hover {
+    opacity: 0.8;
+}
+
+
+
+/* Theme Toggle Button */
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--text-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 2px 8px;
+    font-size: 16px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.theme-toggle:hover {
+    background-color: var(--text-primary);
+    color: var(--bg-primary);
+}
+
+.theme-toggle:active {
+    opacity: 0.7;
+}

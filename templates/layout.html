@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal</title>
+    <link rel="stylesheet" href="{{css_path}}">
+    <script>
+      // Load theme before page renders to avoid flash
+      (function() {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      })();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>Journal</header>
+        <nav>
+            <ul>
+                <li><a href="/all/">All</a></li>
+                <li><a href="/recent/">Recent</a></li>
+                <li><a href="#" onclick="goRandom(); return false;">Random</a></li>
+                <li><a href="/about/">About</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <span id="themeIcon">●</span>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            {{content}}
+        </main>
+        <footer>
+            <p>(c) 2025. Journal: is not a blog</p>
+        </footer>
+    </div>
+
+    <script>
+      async function goRandom() {
+        try {
+          const res = await fetch("/posts.json");
+          if (!res.ok) return;
+          const posts = await res.json();
+          if (!posts.length) return;
+          const randomIndex = Math.floor(Math.random() * posts.length);
+          const post = posts[randomIndex];
+          window.location.href = post.url;
+        } catch (e) {
+          console.error("Random navigation failed", e);
+        }
+      }
+
+      // Theme Toggle Functionality
+      (function() {
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        
+        // Update icon based on current theme
+        function updateIcon() {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+          themeIcon.textContent = currentTheme === 'dark' ? '○' : '●';
+        }
+        
+        // Toggle theme
+        function toggleTheme() {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          updateIcon();
+        }
+        
+        // Initialize icon on page load
+        updateIcon();
+        
+        // Add click event listener
+        themeToggle.addEventListener('click', toggleTheme);
+      })();
+    </script>
+</body>
+</html>

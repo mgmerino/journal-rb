@@ -1,0 +1,131 @@
+<section id="all">
+  <h2>All entries</h2>
+  
+  <div class="table-controls">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search titles...">
+    </div>
+    <div class="filter-box">
+      <select id="tagFilter">
+        <option value="">All tags</option>
+        {{tag_options}}
+      </select>
+    </div>
+  </div>
+
+  <table id="entriesTable">
+    <thead>
+      <tr>
+        <th data-sort="title" class="sortable">Entry <span class="sort-indicator"></span></th>
+        <th data-sort="date" class="sortable">Date <span class="sort-indicator"></span></th>
+        <th data-sort="words" class="sortable">Words <span class="sort-indicator"></span></th>
+        <th>Tags</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{items}}
+    </tbody>
+  </table>
+</section>
+
+<script>
+(function() {
+  const table = document.getElementById('entriesTable');
+  const tbody = table.querySelector('tbody');
+  const searchInput = document.getElementById('searchInput');
+  const tagFilter = document.getElementById('tagFilter');
+  const sortHeaders = table.querySelectorAll('th.sortable');
+  
+  let currentSort = { column: null, ascending: true };
+  let allRows = Array.from(tbody.querySelectorAll('tr'));
+
+  // Search functionality
+  searchInput.addEventListener('input', function() {
+    filterAndDisplay();
+  });
+
+  // Tag filter functionality
+  tagFilter.addEventListener('change', function() {
+    filterAndDisplay();
+  });
+
+  // Sort functionality
+  sortHeaders.forEach(header => {
+    header.addEventListener('click', function() {
+      const sortType = this.getAttribute('data-sort');
+      
+      // Toggle sort direction if same column, otherwise default to ascending
+      if (currentSort.column === sortType) {
+        currentSort.ascending = !currentSort.ascending;
+      } else {
+        currentSort.column = sortType;
+        currentSort.ascending = true;
+      }
+      
+      // Update sort indicators
+      sortHeaders.forEach(h => {
+        const indicator = h.querySelector('.sort-indicator');
+        indicator.textContent = '';
+        h.classList.remove('sorted-asc', 'sorted-desc');
+      });
+      
+      const indicator = this.querySelector('.sort-indicator');
+      indicator.textContent = currentSort.ascending ? ' ▲' : ' ▼';
+      this.classList.add(currentSort.ascending ? 'sorted-asc' : 'sorted-desc');
+      
+      sortTable();
+      filterAndDisplay();
+    });
+  });
+
+  function sortTable() {
+    allRows.sort((a, b) => {
+      let aVal, bVal;
+      
+      switch(currentSort.column) {
+        case 'title':
+          aVal = a.querySelector('.title').textContent.toLowerCase();
+          bVal = b.querySelector('.title').textContent.toLowerCase();
+          break;
+        case 'date':
+          aVal = a.getAttribute('data-date');
+          bVal = b.getAttribute('data-date');
+          break;
+        case 'words':
+          aVal = parseInt(a.getAttribute('data-words'));
+          bVal = parseInt(b.getAttribute('data-words'));
+          break;
+        default:
+          return 0;
+      }
+      
+      if (aVal < bVal) return currentSort.ascending ? -1 : 1;
+      if (aVal > bVal) return currentSort.ascending ? 1 : -1;
+      return 0;
+    });
+  }
+
+  function filterAndDisplay() {
+    const searchTerm = searchInput.value.toLowerCase();
+    const selectedTag = tagFilter.value.toLowerCase();
+    
+    tbody.innerHTML = '';
+    
+    allRows.forEach(row => {
+      const title = row.querySelector('.title').textContent.toLowerCase();
+      const tags = row.getAttribute('data-tags').toLowerCase();
+      
+      const matchesSearch = !searchTerm || title.includes(searchTerm);
+      const matchesTag = !selectedTag || tags.includes(selectedTag);
+      
+      if (matchesSearch && matchesTag) {
+        tbody.appendChild(row);
+      }
+    });
+  }
+
+  // Initialize with current rows
+  allRows = Array.from(tbody.querySelectorAll('tr'));
+})();
+</script>
+
