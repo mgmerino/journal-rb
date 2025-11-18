@@ -15,7 +15,8 @@
     
     --text-primary: #000000;
     --text-secondary: #666666;
-    --text-link: #2d2d2d;
+    --text-tertiary: #3f3f3f;
+    --text-link: #063375;
     --text-table-header: #bcbcbc;
     
     --border-color: #cccccc;
@@ -31,14 +32,15 @@
     
     --text-primary: #e0e0e0;
     --text-secondary: #a0a0a0;
-    --text-link: #b0b0b0;
+    --text-tertiary: #76ff57;
+    --text-link: #76ff57;
     --text-table-header: #a0a0a0;
     
     --border-color: #444444;
 }
 
 body {
-    font-family: serif;
+    font-family: 'CMU Serif';
     font-size: 1rem;
     line-height: 1.5;
     background-color: var(--bg-primary);
@@ -51,19 +53,25 @@ header {
     margin-bottom: 20px;
 }
 h1 {
+    font-family: 'Depixel';
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 20px;
+    color: var(--text-tertiary);
 }
 h2 {
+    font-family: 'Depixel';
     font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin: 1rem 0 2rem 0;
+    color: var(--text-tertiary);
 }
 h3 {
-    font-size: 1.25rem;
+    font-family: 'Depixel';
+    font-size: 1rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin: 2rem 0;
+    color: var(--text-tertiary);
 }
 nav {
     margin-bottom: 20px;
@@ -83,7 +91,7 @@ nav ul li a:hover {
 
 main {
     margin-bottom: 20px;
-    min-width: 800px;
+    min-width: 750px;
 }
 main section {
     margin-bottom: 20px;
@@ -91,11 +99,7 @@ main section {
 main section article {
     margin-bottom: 20px;
 }
-main section article h2 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+
 main section article p {
     margin-bottom: 10px;
 }
@@ -122,7 +126,7 @@ footer p {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -133,6 +137,11 @@ footer p {
     background-color: var(--bg-secondary);
     transition: background-color 0.3s ease;
 }
+.journal-entry img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
 .journal-entry-header {
     display: flex;
     flex-direction: row;
@@ -140,24 +149,35 @@ footer p {
     align-items: center;
 }
 .journal-entry-title {
-    font-family: serif;
-    font-style: italic;
+    font-family: 'Depixel';
     font-size: 1.5rem;
     font-weight: bold;
-    margin-bottom: 10px;
     flex: 4;
 }
 .journal-entry-date {
+    font-family: 'CMU Serif Extra';
     font-size: 1rem;
-    font-style: italic;
     color: var(--text-secondary);
     margin-bottom: 10px;
     flex: 1;
+    align-self: flex-end;
 }
 
 .journal-entry-content {
+    font-family: 'CMU Serif';
+    font-size: 1rem;
     margin-bottom: 10px;
 }
+
+.journal-entry-content ul {
+    list-style: disc;
+    margin-left: 20px;
+}
+.journal-entry-content ol {
+    list-style: decimal;
+    margin-left: 20px;
+}
+
 .journal-entry-footer {
     padding: 0 2rem;
     display: flex;
@@ -166,11 +186,11 @@ footer p {
     justify-content: flex-end;
 }
 .tag {
+    font-family: 'Depixel';
     padding: 0.1rem .5rem;
     border-radius: 0.1rem;
     color: #fff;
-    font-size: 0.8rem;
-    font-family: monospace;
+    font-size: 0.6rem;
     border-radius: 0.1rem;
 }
 .journal-entries {
@@ -194,9 +214,6 @@ a:hover {
 section#all {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
 }
 
 table {
@@ -204,9 +221,8 @@ table {
     border-collapse: collapse;
 }
 td.title {
-    font-family: serif;
-    font-size: 1rem;
-    font-style: italic;
+    font-family: 'Depixel';
+    font-size: 0.7rem;
 }
 table th, table td {
     padding: 0.3rem 1rem;
@@ -277,23 +293,20 @@ table th.sortable:hover {
     opacity: 0.8;
 }
 
-
-
 /* Theme Toggle Button */
 .theme-toggle {
     background: none;
-    border: 1px solid var(--text-primary);
-    color: var(--text-primary);
+    border: none;
     cursor: pointer;
     padding: 2px 8px;
     font-size: 16px;
     font-family: inherit;
     transition: all 0.2s ease;
+    filter:grayscale(100%);
 }
 
 .theme-toggle:hover {
-    background-color: var(--text-primary);
-    color: var(--bg-primary);
+    filter:grayscale(0%);
 }
 
 .theme-toggle:active {
