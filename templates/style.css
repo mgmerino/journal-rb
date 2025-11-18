@@ -56,21 +56,21 @@ h1 {
     font-family: 'Depixel';
     font-size: 2rem;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin: 1.5rem 0 1rem 0;
     color: var(--text-tertiary);
 }
 h2 {
     font-family: 'Depixel';
     font-size: 1.5rem;
     font-weight: bold;
-    margin: 1rem 0 2rem 0;
+    margin: 1.5rem 0 1rem 0;
     color: var(--text-tertiary);
 }
 h3 {
     font-family: 'Depixel';
     font-size: 1rem;
     font-weight: bold;
-    margin: 2rem 0;
+    margin: 1.5rem 0 1rem 0;
     color: var(--text-tertiary);
 }
 nav {
@@ -91,7 +91,6 @@ nav ul li a:hover {
 
 main {
     margin-bottom: 20px;
-    min-width: 750px;
 }
 main section {
     margin-bottom: 20px;
@@ -126,7 +125,7 @@ footer p {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
@@ -167,11 +166,14 @@ footer p {
     font-family: 'CMU Serif';
     font-size: 1rem;
     margin-bottom: 10px;
+    max-width: 80%;
+    text-align: justify;
 }
 
 .journal-entry-content ul {
     list-style: disc;
     margin-left: 20px;
+    margin-bottom: 1rem;
 }
 .journal-entry-content ol {
     list-style: decimal;
