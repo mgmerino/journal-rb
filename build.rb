@@ -72,6 +72,9 @@ def load_posts
   Dir[File.join(POSTS_DIR, "*.md")].each do |path|
     meta, body_md = read_markdown_with_front_matter(path)
 
+    status = meta["status"] || "draft"
+    next unless status == "published"
+
     date = meta["date"].is_a?(Date) ? meta["date"] : Date.parse(meta["date"].to_s)
     slug = meta["slug"] || File.basename(path, ".md")
     title = meta["title"] || slug
