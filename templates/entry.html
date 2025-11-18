@@ -1,11 +1,14 @@
 <section class="journal-entries">
   <article class="journal-entry">
-    <h2 class="journal-entry-title">{{title}}</h2>
+    <h2 class="journal-entry-title">
+      <a href="/posts/{{slug}}/">{{title}}</a>
+    </h2>
+    <p class="journal-entry-date">{{date}}</p>
     <div class="journal-entry-content">
       {{body}}
     </div>
     <div class="journal-entry-footer">
-      <p>{{date}} ({{date_ago}})</p>
+      <p>(written {{date_ago}})</p>
       {{tags}}
     </div>
   </article>
