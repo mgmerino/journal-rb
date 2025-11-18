@@ -368,7 +368,7 @@ def publish
   copy_fonts
   copy_images
 
-  puts "Generated #{posts.size} posts with #{all_tags.size} unique tags."
+  puts "🍹Generated #{posts.size} posts with #{all_tags.size} unique tags."
 end
 
 publish
