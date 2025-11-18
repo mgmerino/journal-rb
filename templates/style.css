@@ -171,7 +171,7 @@ footer p {
     flex: 4;
 }
 .journal-entry-date {
-    font-family: 'CMU Serif Extra';
+    font-family: 'CMU Serif';
     font-size: 1rem;
     color: var(--text-secondary);
     margin-bottom: 10px;
