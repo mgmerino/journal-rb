@@ -1,4 +1,4 @@
-# Journal
+# Journal 🍹
 
 A minimal static site generator that converts Markdown posts to HTML. Built with Ruby, it features a clean interface with tag filtering, theme switching, and a random post navigator.
 
