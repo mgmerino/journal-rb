@@ -4,6 +4,23 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "CMU Serif";
+    src: url("/fonts/CMUSerif-Roman.woff2") format("woff2"),
+         url("/fonts/CMUSerif-Roman.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Depixel";
+    src: url("/fonts/depixelschmal.woff2") format("woff2"),
+         url("/fonts/depixelschmal.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 /* Theme Variables */
 :root {
     /* Light Theme (default) */

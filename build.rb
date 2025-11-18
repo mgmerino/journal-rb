@@ -212,6 +212,26 @@ def copy_css_file
   puts "Copied CSS file to #{css_dst}"
 end
 
+def copy_fonts
+  fonts_src_dir = File.join(ROOT, "assets", "fonts")
+  fonts_dst_dir = File.join(PUBLIC_DIR, "fonts")
+  
+  return unless Dir.exist?(fonts_src_dir)
+  
+  FileUtils.mkdir_p(fonts_dst_dir)
+  
+  # Copy all font files from assets/fonts to public/fonts
+  Dir[File.join(fonts_src_dir, "*")].each do |src_file|
+    next unless File.file?(src_file)
+    
+    dst_file = File.join(fonts_dst_dir, File.basename(src_file))
+    FileUtils.cp(src_file, dst_file)
+  end
+  
+  file_count = Dir[File.join(fonts_src_dir, "*")].select { |f| File.file?(f) }.size
+  puts "Copied #{file_count} font(s) to #{fonts_dst_dir}"
+end
+
 def copy_images
   img_src_dir = File.join(CONTENT_DIR, "img")
   img_dst_dir = File.join(PUBLIC_DIR, "img")
@@ -345,6 +365,7 @@ def publish
   build_posts_json(posts)
   build_atom_feed(posts)
   copy_css_file
+  copy_fonts
   copy_images
 
   puts "Generated #{posts.size} posts with #{all_tags.size} unique tags."
