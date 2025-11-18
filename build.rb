@@ -271,6 +271,68 @@ def build_posts_json(posts)
   File.write(File.join(PUBLIC_DIR, "posts.json"), JSON.pretty_generate(data))
 end
 
+def escape_xml(text)
+  text.to_s
+    .gsub("&", "&amp;")
+    .gsub("<", "&lt;")
+    .gsub(">", "&gt;")
+    .gsub("\"", "&quot;")
+    .gsub("'", "&apos;")
+end
+
+def build_atom_feed(posts)
+  # Configuration
+  site_url = "https://journal.hal9.xyz"
+  site_title = "Journal"
+  site_author = "Manuel González"
+  
+  # Get the most recent update date
+  updated = posts.first ? posts.first["date"].iso8601 : Date.today.iso8601
+  
+  # Limit to 20 most recent posts
+  feed_posts = posts.first(20)
+  
+  feed_xml = <<~XML
+    <?xml version="1.0" encoding="utf-8"?>
+    <feed xmlns="http://www.w3.org/2005/Atom">
+      <title>#{escape_xml(site_title)}</title>
+      <link href="#{site_url}/feed.xml" rel="self" />
+      <link href="#{site_url}/" />
+      <updated>#{updated}</updated>
+      <id>#{site_url}/</id>
+      <author>
+        <name>#{escape_xml(site_author)}</name>
+      </author>
+  XML
+  
+  feed_posts.each do |post|
+    post_url = "#{site_url}/posts/#{post["slug"]}/"
+    post_date = post["date"].iso8601
+    
+    # Create a summary from the HTML content (first paragraph or truncate)
+    summary = post["body_html"].gsub(/<[^>]*>/, " ").gsub(/\s+/, " ").strip[0..200]
+    summary += "..." if summary.length >= 200
+    
+    feed_xml << <<~ENTRY
+      
+        <entry>
+          <title>#{escape_xml(post["title"])}</title>
+          <link href="#{post_url}" />
+          <id>#{post_url}</id>
+          <published>#{post_date}</published>
+          <updated>#{post_date}</updated>
+          <summary>#{escape_xml(summary)}</summary>
+          <content type="html">#{escape_xml(post["body_html"])}</content>
+        </entry>
+    ENTRY
+  end
+  
+  feed_xml << "\n</feed>\n"
+  
+  File.write(File.join(PUBLIC_DIR, "feed.xml"), feed_xml)
+  puts "Generated Atom feed with #{feed_posts.size} posts."
+end
+
 def publish
   posts = load_posts
   all_tags = collect_all_tags(posts)
@@ -281,6 +343,7 @@ def publish
   build_all_page(posts, tag_colors)
   build_recent_page(posts, tag_colors)
   build_posts_json(posts)
+  build_atom_feed(posts)
   copy_css_file
   copy_images
 
