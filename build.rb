@@ -49,6 +49,23 @@ def count_words(text)
   text.gsub(/[^\w\s]/, " ").split.size
 end
 
+def time_ago(date)
+  now = Date.today
+  days_diff = (now - date).to_i
+  
+  return "today" if days_diff == 0
+  return "yesterday" if days_diff == 1
+  return "#{days_diff} days ago" if days_diff < 30
+  
+  months_diff = (days_diff / 30.0).round
+  return "#{months_diff} month ago" if months_diff == 1
+  return "#{months_diff} months ago" if months_diff < 12
+  
+  years_diff = (days_diff / 365.0).round
+  return "#{years_diff} year ago" if years_diff == 1
+  "#{years_diff} years ago"
+end
+
 def load_posts
   posts = []
 
@@ -122,6 +139,7 @@ def build_post_pages(posts, tag_colors)
       .sub("{{title}}", post["title"])
       .sub("{{body}}", post["body_html"])
       .sub("{{date}}", post["date"].strftime("%B %d, %Y"))
+      .sub("{{date_ago}}", time_ago(post["date"]))
       .sub("{{tags}}", render_tags(post["tags"], tag_colors))
 
     full_html = render_layout(article_html, title: post["title"], path_from_root: "../../")
@@ -191,6 +209,26 @@ def copy_css_file
   puts "Copied CSS file to #{css_dst}"
 end
 
+def copy_images
+  img_src_dir = File.join(CONTENT_DIR, "img")
+  img_dst_dir = File.join(PUBLIC_DIR, "img")
+  
+  return unless Dir.exist?(img_src_dir)
+  
+  FileUtils.mkdir_p(img_dst_dir)
+  
+  # Copy all files from content/img to public/img
+  Dir[File.join(img_src_dir, "*")].each do |src_file|
+    next unless File.file?(src_file)
+    
+    dst_file = File.join(img_dst_dir, File.basename(src_file))
+    FileUtils.cp(src_file, dst_file)
+  end
+  
+  file_count = Dir[File.join(img_src_dir, "*")].select { |f| File.file?(f) }.size
+  puts "Copied #{file_count} image(s) to #{img_dst_dir}"
+end
+
 def build_recent_page(posts, tag_colors)
   recent_template = File.read(File.join(TEMPLATES_DIR, "recent.html"))
   entry_template = File.read(File.join(TEMPLATES_DIR, "recent-entry.html"))
@@ -241,6 +279,7 @@ def publish
   build_recent_page(posts, tag_colors)
   build_posts_json(posts)
   copy_css_file
+  copy_images
 
   puts "Generated #{posts.size} posts with #{all_tags.size} unique tags."
 end
