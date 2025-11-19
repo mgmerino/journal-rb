@@ -16,7 +16,7 @@
 </head>
 <body>
     <div class="container">
-        <header>Journal</header>
+        <header><a href="/">Journal</a></header>
         <nav>
             <ul>
                 <li><a href="/all/">All</a></li>
@@ -24,16 +24,22 @@
                 <li><a href="#" onclick="goRandom(); return false;">Random</a></li>
                 <li><a href="/about/">About</a></li>
                 <li><a href="/feed.xml">RSS</a></li>
-                <li>
-                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                        <span id="themeIcon"></span>
-                    </button>
-                </li>
             </ul>
         </nav>
+        <aside>
+          <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+              <span id="themeIcon"></span>
+          </button>
+        </aside>
         <main>
             {{content}}
         </main>
+        <nav>
+          <ul>
+            <li>💾 <a href="/all/">All</a></li>
+            <li>🎲 <a href="#" onclick="goRandom(); return false;">Random</a></li>
+          </ul>
+        </nav>
         <footer>
             <p>(c) Manuel González 2025. Journal: is not a blog.</p>
         </footer>
