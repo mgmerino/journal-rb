@@ -26,14 +26,14 @@
     /* Light Theme (default) */
     --bg-primary: #ffffff;
     --bg-secondary: #f0f0f0;
-    --bg-table-header: #3c3c3c;
+    --bg-table-header: #323232;
     --bg-table-odd: #dedede;
     --bg-table-even: #bdbdbd;
     
-    --text-primary: #000000;
+    --text-primary: #161616;
     --text-secondary: #666666;
     --text-tertiary: #3f3f3f;
-    --text-link: #063375;
+    --text-link: #5740cc;
     --text-table-header: #bcbcbc;
     
     --border-color: #cccccc;
@@ -78,17 +78,27 @@ h1 {
 }
 h2 {
     font-family: 'Depixel';
-    font-size: 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 1rem 0;
+    color: var(--text-tertiary);
+}
+@media (min-width: 640px) {
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+h3 {
+    font-family: 'Depixel';
+    font-size: 0.7rem;
     font-weight: bold;
     margin: 1.5rem 0 1rem 0;
     color: var(--text-tertiary);
 }
-h3 {
-    font-family: 'Depixel';
-    font-size: 1rem;
-    font-weight: bold;
-    margin: 1.5rem 0 1rem 0;
-    color: var(--text-tertiary);
+@media (min-width: 640px) {
+    h3 {
+        font-size: 1.5rem;
+    }
 }
 nav {
     margin-bottom: 20px;
@@ -174,7 +184,7 @@ footer p {
 }
 @media (min-width: 640px) {
     .journal-entry {
-        padding: 2rem;
+        padding: 1rem 2rem;
     }
 }
 .journal-entry img {
@@ -184,9 +194,16 @@ footer p {
 }
 .journal-entry-header {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+}
+@media (min-width: 640px) {
+    .journal-entry-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
 .journal-entry-title {
     font-family: 'Depixel';
@@ -200,8 +217,8 @@ footer p {
     }
 }
 .journal-entry-date {
-    font-family: 'CMU Serif';
-    font-size: 0.7rem;
+    font-family: 'CMU Serif Upright Italic';
+    font-size: 1rem;
     color: var(--text-secondary);
     margin-bottom: 10px;
     flex: 1;
@@ -211,6 +228,8 @@ footer p {
 @media (min-width: 640px) {
     .journal-entry-date {
         font-size: 1rem;
+        text-align: right;
+        align-self: center;
     }
 }
 
@@ -233,13 +252,15 @@ footer p {
     list-style: decimal;
     margin-left: 20px;
 }
-
-.journal-entry-footer {
-    padding: 0 2rem;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: flex-end;
+@media (min-width: 640px) {
+    .journal-entry-footer {
+        padding: 0 2rem;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: flex-end;
+        max-width: 85%;
+    }
 }
 .tag {
     font-family: 'Depixel';
@@ -262,8 +283,13 @@ footer p {
 section#all {
     display: flex;
     flex-direction: column;
+    min-width: 300px;
 }
-
+@media (min-width: 640px) {
+    section#all {
+        min-width: 800px;
+    }
+}
 table {
     width: 100%;
     border-collapse: collapse;

@@ -112,6 +112,11 @@ def generate_tag_colors(tags)
     "#9d00ff", # purple
     "#ff0066", # pink
     "#00ff88", # teal
+    "#76ff57", # lime
+    "#ff57ff", # fuchsia
+    "#57ffff", # aqua
+    "#ff5757", # coral
+    "#5757ff", # indigo
   ]
   
   tag_colors = {}
