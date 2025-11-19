@@ -52,7 +52,7 @@
     --text-tertiary: #76ff57;
     --text-link: #76ff57;
     --text-table-header: #a0a0a0;
-    
+    --text-link-hover: #518f41;
     --border-color: #444444;
 }
 
@@ -98,12 +98,26 @@ nav ul {
     display: flex;
     gap: 20px;
 }
+
+a {
+    text-decoration: none;
+    color: var(--text-link);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    text-decoration: none;
+    border-bottom: 1px solid var(--text-link-hover);
+}
+
 nav ul li a {
     text-decoration: none;
+    border-bottom: 1px solid var(--text-link);
     color: var(--text-primary);
 }
 nav ul li a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    border-bottom: 1px dotted var(--text-link-hover);
 }
 
 main {
@@ -139,19 +153,29 @@ footer p {
 .container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     width: 100%;
-    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
 }
 
+@media (min-width: 640px) {
+    .container {
+        align-items: center;
+        justify-content: center;
+        max-width: 800px;
+    }
+}
+
 .journal-entry {
     margin-bottom: 20px;
-    padding: 2rem;
+    padding: 1rem;
     background-color: var(--bg-secondary);
     transition: background-color 0.3s ease;
+}
+@media (min-width: 640px) {
+    .journal-entry {
+        padding: 2rem;
+    }
 }
 .journal-entry img {
     max-width: 100%;
@@ -166,27 +190,40 @@ footer p {
 }
 .journal-entry-title {
     font-family: 'Depixel';
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     flex: 4;
 }
+@media (min-width: 640px) {
+    .journal-entry-title {
+        font-size: 2rem;
+    }
+}
 .journal-entry-date {
     font-family: 'CMU Serif';
-    font-size: 1rem;
+    font-size: 0.7rem;
     color: var(--text-secondary);
     margin-bottom: 10px;
     flex: 1;
     align-self: flex-end;
 }
 
+@media (min-width: 640px) {
+    .journal-entry-date {
+        font-size: 1rem;
+    }
+}
+
 .journal-entry-content {
     font-family: 'CMU Serif';
     font-size: 1rem;
     margin-bottom: 10px;
-    max-width: 80%;
-    text-align: justify;
 }
-
+@media (min-width: 640px) {
+    .journal-entry-content {
+        max-width: 80%;
+    }
+}
 .journal-entry-content ul {
     list-style: disc;
     margin-left: 20px;
@@ -219,14 +256,6 @@ footer p {
     justify-content: center;
 }
 
-a {
-    text-decoration: none;
-    color: var(--text-link);
-    transition: color 0.3s ease;
-}
-a:hover {
-    text-decoration: underline;
-}
 
 /* sections */
 
@@ -244,7 +273,13 @@ td.title {
     font-size: 0.7rem;
 }
 table th, table td {
-    padding: 0.3rem 1rem;
+    padding: 0.1rem 0.5rem;
+}
+@media (min-width: 640px) {
+    table th, table td {
+        padding: 0.3rem 1rem;
+        font-size: 1rem;
+    }
 }
 table th {
     background-color: var(--bg-table-header);
