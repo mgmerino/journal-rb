@@ -333,6 +333,7 @@ def build_atom_feed(posts)
   feed_posts.each do |post|
     post_url = "#{site_url}/posts/#{post["slug"]}/"
     post_date = post["date"].iso8601
+    post_updated = post["updated"]&.iso8601 || post_date
     
     # Create a summary from the HTML content (first paragraph or truncate)
     summary = post["body_html"].gsub(/<[^>]*>/, " ").gsub(/\s+/, " ").strip[0..200]
@@ -345,7 +346,7 @@ def build_atom_feed(posts)
           <link href="#{post_url}" />
           <id>#{post_url}</id>
           <published>#{post_date}</published>
-          <updated>#{post_date}</updated>
+          <updated>#{post_updated}</updated>
           <summary>#{escape_xml(summary)}</summary>
           <content type="html">#{escape_xml(post["body_html"])}</content>
         </entry>
