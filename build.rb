@@ -32,6 +32,18 @@ def render_markdown(markdown)
   Kramdown::Document.new(markdown).to_html
 end
 
+def replace_youtube_iframes(html)
+  html.gsub(/<iframe[^>]*src="https:\/\/www\.youtube\.com\/embed\/([^"?\s]+)[^"]*"[^>]*><\/iframe>/) do
+    video_id = $1
+    <<~HTML.strip
+      <div class="lite-yt" data-id="#{video_id}">
+        <img src="https://img.youtube.com/vi/#{video_id}/hqdefault.jpg" alt="Watch on YouTube" loading="lazy">
+        <button class="yt-play" aria-label="Play video"></button>
+      </div>
+    HTML
+  end
+end
+
 def render_layout(content_html, title: nil, path_from_root: "")
   layout = File.read(File.join(TEMPLATES_DIR, "layout.html"))
 
@@ -80,7 +92,7 @@ def load_posts
     title = meta["title"] || slug
     tags = meta["tags"] || []
 
-    body_html = render_markdown(body_md)
+    body_html = replace_youtube_iframes(render_markdown(body_md))
     word_count = count_words(body_md)
 
     posts << {

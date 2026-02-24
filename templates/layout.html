@@ -60,6 +60,18 @@
         }
       }
 
+      // Lite YouTube: load nocookie iframe on click
+      document.addEventListener('click', function(e) {
+        var el = e.target.closest('.lite-yt');
+        if (!el || el.querySelector('iframe')) return;
+        var id = el.dataset.id;
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1';
+        iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        el.appendChild(iframe);
+      });
+
       // Theme Toggle Functionality
       (function() {
         const themeToggle = document.getElementById('themeToggle');
